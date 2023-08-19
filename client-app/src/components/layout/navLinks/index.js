@@ -12,7 +12,7 @@ const NavLinks = ({ handleCloseNavMenu }) => {
     // calculate total length of component
 
     return (
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {pages.map((page) => (
                 <Button
                     key={page.key}

@@ -10,15 +10,12 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import NavLinks from '../navLinks';
 import UserProfileAvatar from '../profile';
-import { useTheme } from '@mui/material/styles';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-    const theme = useTheme();
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
