@@ -63,6 +63,19 @@ export default function CreditCardForm({ creditCard }) {
                 <Grid container spacing={2} mt={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
+                            error={touched.cardNumber && !!errors.cardNumber}
+                            fullWidth
+                            helperText={errors.cardNumber}
+                            id="cardNumber"
+                            label="Card Number"
+                            name="cardNumber"
+                            onChange={handleChange}
+                            value={values.cardNumber}
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
                             error={touched.cardName && !!errors.cardName}
                             fullWidth
                             helperText={errors.cardName}
@@ -84,22 +97,7 @@ export default function CreditCardForm({ creditCard }) {
                             label="Card Holder Name"
                             name="cardHolderName"
                             onChange={handleChange}
-                            required
                             value={values.cardHolderName}
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            error={touched.cardNumber && !!errors.cardNumber}
-                            fullWidth
-                            helperText={errors.cardNumber}
-                            id="cardNumber"
-                            label="Card Number"
-                            name="cardNumber"
-                            onChange={handleChange}
-                            required
-                            value={values.cardNumber}
                             variant="outlined"
                         />
                     </Grid>
@@ -112,7 +110,6 @@ export default function CreditCardForm({ creditCard }) {
                             label="Bank Name"
                             name="bankName"
                             onChange={handleChange}
-                            required
                             value={values.bankName}
                             variant="outlined"
                         />
