@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { InputAdornment, Paper, Typography } from "@mui/material";
+import { InputAdornment } from "@mui/material";
 import Button from '@mui/material/Button';
 
-export default function BankAccountForm({ bankAccount }) {
+export default function CreditCardForm({ bankAccount }) {
 
     const yupValidationSchema = yup.object({
         accountNumber: yup.string().matches(/^\d{12}$/, 'Must be a valid account number'),
@@ -36,29 +37,9 @@ export default function BankAccountForm({ bankAccount }) {
     const { handleSubmit, handleChange, values, errors, touched, isSubmitting } = formik;
 
     return (
-        <Paper style={{
-            padding: '1rem',
-            margin: '1rem',
-        }} elevation={2}>
+        <Box>
             <form onSubmit={handleSubmit}>
-                <Typography 
-                    variant="h5" 
-                    gutterBottom 
-                    style={{
-                        textAlign: 'center',
-                    }}>
-                    Add Bank Account
-                </Typography>
-                <Typography
-                    variant="body2"
-                    gutterBottom
-                    color={errors.accountNumber ? 'error' : 'textSecondary'}
-                    style={{
-                        textAlign: 'center',
-                    }}>
-                    Add your bank account details
-                </Typography>
-                <Grid container spacing={2} mt={1}>
+                <Grid container spacing={2} mt={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
                             error={touched.accountNumber && !!errors.accountNumber}
@@ -155,6 +136,6 @@ export default function BankAccountForm({ bankAccount }) {
                     </Grid>
                 </Grid>
             </form>
-        </Paper>
+        </Box>
     )
 };
