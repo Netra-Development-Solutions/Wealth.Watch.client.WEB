@@ -1,12 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
+import ResponsiveAppBar from './components/layout/header';
+
+import theme from './components/layout/theme';
+
+import { ThemeProvider } from '@mui/material/styles';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <ResponsiveAppBar />
+    </ThemeProvider>
   );
 }
 
