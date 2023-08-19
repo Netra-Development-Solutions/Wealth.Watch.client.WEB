@@ -1,31 +1,32 @@
 import * as React from "react";
 import * as yup from 'yup';
-import { useFormik } from 'formik';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
 import { InputAdornment } from "@mui/material";
+import { useFormik } from 'formik';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 
-export default function CreditCardForm({ bankAccount }) {
+export default function CreditCardForm({ creditCard }) {
 
     const yupValidationSchema = yup.object({
-        accountNumber: yup.string().matches(/^\d{12}$/, 'Must be a valid account number'),
-        accountName: yup.string().required('Required'),
-        accountHolderName: yup.string(),
-        bankName: yup.string(),
-        ifscCode: yup.string().matches(/^[A-Za-z]{4}\d{7}$/, 'Must be a valid IFSC code'),
         balance: yup.number().positive().integer(),
+        bankName: yup.string(),
+        cardHolderName: yup.string(),
+        cardName: yup.string(),
+        cardNumber: yup.string().matches(/^\d{16}$/, 'Must be a valid card number'),
+        creditLimit: yup.number().positive().integer(),
     });
 
     const formik = useFormik({
         initialValues: {
-            accountNumber: bankAccount?.accountNumber || '',
-            accountName: bankAccount?.accountName || '',
-            accountHolderName: bankAccount?.accountHolderName || '',
-            bankName: bankAccount?.bankName || '',
-            ifscCode: bankAccount?.ifscCode || '',
-            balance: bankAccount?.balance || 0,
+            balance: creditCard?.balance || 0,
+            bankName: creditCard?.bankName || '',
+            cardHolderName: creditCard?.cardHolderName || '',
+            cardName: creditCard?.cardName || '',
+            cardNumber: creditCard?.cardNumber || '',
+            creditLimit: creditCard?.creditLimit || 0,
         },
         validationSchema: yupValidationSchema,
         onSubmit: (values, actions) => {
@@ -37,46 +38,68 @@ export default function CreditCardForm({ bankAccount }) {
     const { handleSubmit, handleChange, values, errors, touched, isSubmitting } = formik;
 
     return (
-        <Box>
+        <Paper style={{
+            padding: '1rem',
+            margin: '1rem',
+        }} elevation={2}>
             <form onSubmit={handleSubmit}>
+                <Typography
+                    variant="h5"
+                    gutterBottom
+                    style={{
+                        textAlign: 'center',
+                    }}>
+                    Add Credit Card
+                </Typography>
+                <Typography
+                    variant="body2"
+                    gutterBottom
+                    color={errors.accountNumber ? 'error' : 'textSecondary'}
+                    style={{
+                        textAlign: 'center',
+                    }}>
+                    Add your credit card details
+                </Typography>
                 <Grid container spacing={2} mt={2}>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            error={touched.accountNumber && !!errors.accountNumber}
+                            error={touched.cardName && !!errors.cardName}
                             fullWidth
-                            helperText={errors.accountNumber}
-                            id="accountNumber"
-                            label="Account Number"
-                            name="accountNumber"
-                            onChange={handleChange}
-                            value={values.accountNumber}
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            error={touched.accountName && !!errors.accountName}
-                            fullWidth
-                            helperText={errors.accountName}
-                            id="accountName"
-                            label="Account Name"
-                            name="accountName"
+                            helperText={errors.cardName}
+                            id="cardName"
+                            label="Card Name"
+                            name="cardName"
                             onChange={handleChange}
                             required
-                            value={values.accountName}
+                            value={values.cardName}
                             variant="outlined"
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            error={touched.accountHolderName && !!errors.accountHolderName}
+                            error={touched.cardHolderName && !!errors.cardHolderName}
                             fullWidth
-                            helperText={errors.accountHolderName}
-                            id="accountHolderName"
-                            label="Account Holder Name"
-                            name="accountHolderName"
+                            helperText={errors.cardHolderName}
+                            id="cardHolderName"
+                            label="Card Holder Name"
+                            name="cardHolderName"
                             onChange={handleChange}
-                            value={values.accountHolderName}
+                            required
+                            value={values.cardHolderName}
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            error={touched.cardNumber && !!errors.cardNumber}
+                            fullWidth
+                            helperText={errors.cardNumber}
+                            id="cardNumber"
+                            label="Card Number"
+                            name="cardNumber"
+                            onChange={handleChange}
+                            required
+                            value={values.cardNumber}
                             variant="outlined"
                         />
                     </Grid>
@@ -89,21 +112,25 @@ export default function CreditCardForm({ bankAccount }) {
                             label="Bank Name"
                             name="bankName"
                             onChange={handleChange}
+                            required
                             value={values.bankName}
                             variant="outlined"
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField
-                            error={touched.ifscCode && !!errors.ifscCode}
+                            error={touched.creditLimit && !!errors.creditLimit}
                             fullWidth
-                            helperText={errors.ifscCode}
-                            id="ifscCode"
-                            label="IFSC Code"
-                            name="ifscCode"
+                            helperText={errors.creditLimit}
+                            id="creditLimit"
+                            label="Credit Limit"
+                            name="creditLimit"
                             onChange={handleChange}
-                            value={values.ifscCode}
+                            value={values.creditLimit}
                             variant="outlined"
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">₹</InputAdornment>,
+                            }}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -136,6 +163,6 @@ export default function CreditCardForm({ bankAccount }) {
                     </Grid>
                 </Grid>
             </form>
-        </Box>
+        </Paper>
     )
 };

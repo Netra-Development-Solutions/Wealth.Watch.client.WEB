@@ -5,6 +5,7 @@ import ResponsiveAppBar from './components/layout/header';
 import theme from './components/layout/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import CreditCardForm from './components/forms/CreditCard';
 
 function App() {
     return (
@@ -13,6 +14,9 @@ function App() {
             <ResponsiveAppBar />
             <Container maxWidth="md">
                 <BankAccountForm />
+            </Container>
+            <Container maxWidth="md">
+                <CreditCardForm />
             </Container>
         </ThemeProvider>
     );

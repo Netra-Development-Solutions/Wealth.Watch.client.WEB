@@ -1,30 +1,30 @@
 import * as React from "react";
 import * as yup from 'yup';
+import { InputAdornment, Paper, Typography } from "@mui/material";
 import { useFormik } from 'formik';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { InputAdornment, Paper, Typography } from "@mui/material";
-import Button from '@mui/material/Button';
 
 export default function BankAccountForm({ bankAccount }) {
 
     const yupValidationSchema = yup.object({
-        accountNumber: yup.string().matches(/^\d{12}$/, 'Must be a valid account number'),
-        accountName: yup.string().required('Required'),
         accountHolderName: yup.string(),
+        accountName: yup.string().required('Required'),
+        accountNumber: yup.string().matches(/^\d{12}$/, 'Must be a valid account number'),
+        balance: yup.number().positive().integer(),
         bankName: yup.string(),
         ifscCode: yup.string().matches(/^[A-Za-z]{4}\d{7}$/, 'Must be a valid IFSC code'),
-        balance: yup.number().positive().integer(),
     });
 
     const formik = useFormik({
         initialValues: {
-            accountNumber: bankAccount?.accountNumber || '',
-            accountName: bankAccount?.accountName || '',
             accountHolderName: bankAccount?.accountHolderName || '',
+            accountName: bankAccount?.accountName || '',
+            accountNumber: bankAccount?.accountNumber || '',
+            balance: bankAccount?.balance || 0,
             bankName: bankAccount?.bankName || '',
             ifscCode: bankAccount?.ifscCode || '',
-            balance: bankAccount?.balance || 0,
         },
         validationSchema: yupValidationSchema,
         onSubmit: (values, actions) => {
