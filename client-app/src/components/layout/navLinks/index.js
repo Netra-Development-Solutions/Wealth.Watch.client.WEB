@@ -2,10 +2,9 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
+import { pages } from '../../../constants';
 
-const pages = ['Products', 'Pricing', 'Blog', 'About', 'Contact'];
-
-const NavLinks = ({handleCloseNavMenu}) => {
+const NavLinks = ({ handleCloseNavMenu }) => {
     const theme = useTheme();
     const isDark = theme.palette.mode === 'dark';
 
@@ -13,14 +12,14 @@ const NavLinks = ({handleCloseNavMenu}) => {
     // calculate total length of component
 
     return (
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
             {pages.map((page) => (
                 <Button
-                    key={page}
+                    key={page.key}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: isDark ? theme.palette.common.white : theme.palette.primary.contrastText , display: 'block' }}
+                    sx={{ my: 2, color: isDark ? theme.palette.common.white : theme.palette.primary.contrastText, display: 'block' }}
                 >
-                    {page}
+                    {page.name}
                 </Button>
             ))}
         </Box>
