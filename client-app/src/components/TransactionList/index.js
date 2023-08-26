@@ -12,6 +12,7 @@ const generateColumns = (bankAccounts, creditCards) => {
             headerName: "Transaction Date",
             minWidth: 170,
             align: "center",
+            valueFormatter: (value) => new Date(value?.value).toLocaleDateString(),
         },
         {
             field: "transactionAmount",
@@ -30,13 +31,15 @@ const generateColumns = (bankAccounts, creditCards) => {
             minWidth: 170,
         },
         { field: "transactionType", headerName: "Transaction Type", minWidth: 170 },
-        { field: "bankAccountId", headerName: "Bank Account", minWidth: 170,
+        {
+            field: "bankAccountId", headerName: "Bank Account", minWidth: 170,
             valueFormatter: (value) => {
                 const bankAccount = bankAccounts?.find((bankAccount) => bankAccount._id === value?.value);
                 return bankAccount?.accountName || value?.value;
             }
         },
-        { field: "creditCardId", headerName: "Credit Card Id", minWidth: 170,
+        {
+            field: "creditCardId", headerName: "Credit Card Id", minWidth: 170,
             valueFormatter: (value) => {
                 const creditCard = creditCards?.find((creditCard) => creditCard._id === value?.value);
                 return creditCard?.cardName || value?.value;
@@ -98,21 +101,32 @@ const StyledTransactionGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
 const TransactionList = () => {
-    const [refresh, setRefresh] = React.useState(false);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-    const [rows, setRows] = React.useState([]);
-    const applicationTheme = useTheme();
     const [bankAccounts, setBankAccounts] = React.useState([]);
     const [creditCards, setCreditCards] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [paginationModel, setPaginationModel] = React.useState({page: 0, pageSize: 25});
+    const [refresh, setRefresh] = React.useState(true);
+    const [rowCountState, setRowCountState] = React.useState(0);
+    const [rows, setRows] = React.useState([]);
+    const applicationTheme = useTheme();
 
     React.useEffect(() => {
         const token =
-            "b8b3ca333b62f6969cd2f85e4d194faf83020892bca77db75cd959b23608693d6b0650ac12389550b7fd819d45a8d363827aa54e8b3863a0975bd785233fe1e53032cfa2635e4fc526b0764d2c126d33a7ed9500ae5345fcd98df2bb5b0d778ac9f55105552d9b1b5e556aedc9c5bcf5a95e862ecdfa565d99cd5323199d253a7b73ea53d1f1530adfab14acf133ab6d986aec88f72a8ca0cc7c1c18db11c36c8d05a08302e447e489c92ffcb45264da3ac5d33d22712f324e92a664e84d8ce0fcf68cbccf7910ef61f539dcb186297c983764cb08eff91613.d217b2d6ebcbadb1a604b3b436521202";
+            "b8b3ca333b62f6969cd2f85e4d194faf83020892bca77db75cd959b23608693d6b0650ac12389550b7fd819d45a8d363827aa54e8b3863a0975bd785233fe1e53032cfa2635e4fc526b0764d2c126d33a7ed9500ae5345fcd98df2bb5b0d778ac9f55105552d9b1b5e556aedc9c5bcf5a95e862ecdfa565d99cd5323199d253a7b73ea53d1f1530adfab14acf133bb43d36bd280bf2a8ca0cc7c1c18db11c36c8d05a08740e779d284c801e8b4524de61ec4eb1c7b4a5c3029c7de5bdc18be86c286a186896643e746b138f383844f719d7c4bce1cf1a82a39.0a1bc7fa17b797df61f3adec951eb7ef";
+
         if (refresh) {
-            get("http://localhost:4000/TRANSACTION/", `Bearer ${token}`)
+            get(`http://localhost:4000/TRANSACTION/?page=${paginationModel.page+1}&limit=${paginationModel.pageSize}`, `Bearer ${token}`)
                 .then((response) => {
-                    setRows(response?.data?.data);
+                    setRows(response?.data?.data?.transactions);
+                    const { page, limit, total } = response?.data?.data?.pageDetails;
+                    setPaginationModel({
+                        page: page-1,
+                        pageSize: limit,
+                        rowCount: total,
+                        pageCount: Math.ceil(total / limit),
+                    });
+                    setRowCountState(total);
+                    setIsLoading(false);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -134,20 +148,8 @@ const TransactionList = () => {
 
             setRefresh(false);
         }
-    }, [refresh]);
+    }, [refresh, paginationModel.page, paginationModel.pageSize]);
 
-    React.useEffect(() => {
-        setRefresh(true);
-    }, []);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
     return (
         <Paper
             style={{
@@ -161,13 +163,24 @@ const TransactionList = () => {
                 <Typography variant="body1">No transactions found</Typography>
             )}
             <StyledTransactionGrid
-                getRowId={(row) => row?._id}
-                rows={rows}
                 columns={generateColumns(bankAccounts, creditCards)}
-                getRowClassName={(params) =>
-                    `super-app-theme--${params.row?.transactionType}--${applicationTheme?.palette?.mode || "dark"
-                    }`
-                }
+                getRowClassName={(params) => `super-app-theme--${params.row?.transactionType}--${applicationTheme?.palette?.mode || "dark"}`}
+                getRowId={(row) => row?._id}
+                loading={isLoading}
+                onPaginationModelChange={(a, b) => {
+                    setRefresh(true);
+                    setIsLoading(true);
+                    setPaginationModel(a, b);
+                }}
+                paginationMode="server"
+                // paginationModel={paginationModel}
+                rowCount={rowCountState}
+                rows={rows}
+                pageSizeOptions={[5 ,25, 50, 100]}
+                initialState={{
+                    // ...data.initialState,
+                    pagination: { paginationModel },
+                }}
             />
         </Paper>
     );
