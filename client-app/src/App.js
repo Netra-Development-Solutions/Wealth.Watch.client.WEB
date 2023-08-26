@@ -10,6 +10,7 @@ import CreditCardForm from './components/forms/CreditCard';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import HomePageComponent from './components/HomePageComponent';
+import TransactionList from './components/TransactionList';
 
 function App() {
     return (
@@ -18,13 +19,16 @@ function App() {
             <ResponsiveAppBar />
 
             <Container>
-                <Paper sx={{ display: 'flex', flexDirection: 'column' }} elevation={1}>
+                <Paper sx={{ display: 'flex', flexDirection: 'column', margin: '1rem 0' }} elevation={1}>
                     <Grid container>
                         <Grid item xs={12} md={6}>
                             <HomePageComponent />
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TransactionForm />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TransactionList />
                         </Grid>
                     </Grid>
                 </Paper>

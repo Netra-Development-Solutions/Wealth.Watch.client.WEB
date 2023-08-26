@@ -29,7 +29,7 @@ export default function TransactionForm({ transaction }) {
             paymentMode: transaction?.paymentMode || '',
             paymentModeId: transaction?.paymentModeId || '',
             transactionAmount: transaction?.transactionAmount || 0,
-            transactionDate: transaction?.transactionDate || `${(new Date()).getFullYear()}-${(new Date()).getMonth()}-${(new Date()).getDate()}`,
+            transactionDate: transaction?.transactionDate || `${(new Date()).getFullYear()}-${`0${(new Date()).getMonth()}`.slice(0,2)}-${(new Date()).getDate()}`,
             transactionType: transaction?.transactionType || 'CREDIT',
         },
         validationSchema: yupValidationSchema,
@@ -40,6 +40,8 @@ export default function TransactionForm({ transaction }) {
     });
 
     const { handleSubmit, handleChange, values, errors, touched, isSubmitting, setFieldValue } = formik;
+
+    console.log(values);
 
     return (
         <Paper style={{
@@ -67,7 +69,7 @@ export default function TransactionForm({ transaction }) {
                 <Grid container spacing={2} mt={1}>
                     <Grid item xs={12}>
                         <ToggleButtonGroup
-                            color="secondary"
+                            color="primary"
                             value={values.transactionType}
                             exclusive
                             onChange={(e, value) => {
@@ -105,7 +107,10 @@ export default function TransactionForm({ transaction }) {
                             label="Transaction Date"
                             type="date"
                             value={values.transactionDate}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                                console.log(e.target.value);
+                                handleChange(e)
+                            }}
                             error={touched.transactionDate && Boolean(errors.transactionDate)}
                             helperText={touched.transactionDate && errors.transactionDate}
                             InputLabelProps={{
