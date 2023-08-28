@@ -6,7 +6,6 @@ import ResponsiveAppBar from './components/layout/header';
 import ReactDOM from 'react-dom/client';
 import theme from './components/layout/theme';
 import { ThemeProvider } from '@mui/material/styles';
-import TransactionForm from './components/forms/Transactions';
 import { CssBaseline, Grid } from '@mui/material';
 import CreditCardForm from './components/forms/CreditCard';
 import Paper from '@mui/material/Paper';
@@ -14,6 +13,8 @@ import { styled } from '@mui/material/styles';
 import HomePageComponent from './components/HomePageComponent';
 import TransactionList from './components/TransactionList';
 import reportWebVitals from './reportWebVitals';
+
+import TransactionForm from 'wealth_watch_transaction_react/TransactionForm';
 
 function App() {
     return (
