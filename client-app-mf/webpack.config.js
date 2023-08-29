@@ -45,6 +45,7 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {
         "wealth_watch_transaction_react": "wealth_watch_transaction_react@http://localhost:3002/remoteEntry.js",
+        "user_management": "user_management@http://localhost:3001/remoteEntry.js"
       },
       exposes: {},
       shared: {

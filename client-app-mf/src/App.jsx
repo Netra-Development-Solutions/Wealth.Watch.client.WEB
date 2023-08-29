@@ -16,6 +16,9 @@ import reportWebVitals from './reportWebVitals';
 import TransactionList from 'wealth_watch_transaction_react/TransactionList';
 import TransactionForm from 'wealth_watch_transaction_react/TransactionForm';
 
+import RegisterForm from "user_management/Register";
+import LoginForm from "user_management/Login";
+
 function App() {
     return (
         <ThemeProvider theme={theme}>
@@ -30,6 +33,8 @@ function App() {
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <TransactionForm />
+                            <RegisterForm />
+                            <LoginForm />
                         </Grid>
                         <Grid item xs={12}>
                             <TransactionList />
