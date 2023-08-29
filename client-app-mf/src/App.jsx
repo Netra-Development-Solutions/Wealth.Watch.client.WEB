@@ -16,8 +16,11 @@ import reportWebVitals from './reportWebVitals';
 import TransactionList from 'wealth_watch_transaction_react/TransactionList';
 import TransactionForm from 'wealth_watch_transaction_react/TransactionForm';
 
-import RegisterForm from "user_management/Register";
-import LoginForm from "user_management/Login";
+import { BrowserRouter as Router, useRoutes } from "react-router-dom";
+import routes from "./routes";
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
+const router = createBrowserRouter(routes)
 
 function App() {
     return (
@@ -25,7 +28,9 @@ function App() {
             <CssBaseline />
             <ResponsiveAppBar />
 
-            <Container>
+            <RouterProvider router={router} />
+
+            {/* <Container>
                 <Paper sx={{ display: 'flex', flexDirection: 'column', margin: '1rem 0' }} elevation={1}>
                     <Grid container>
                         <Grid item xs={12} md={6}>
@@ -41,7 +46,7 @@ function App() {
                         </Grid>
                     </Grid>
                 </Paper>
-            </Container>
+            </Container> */}
 
         </ThemeProvider>
     );
@@ -49,9 +54,9 @@ function App() {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
