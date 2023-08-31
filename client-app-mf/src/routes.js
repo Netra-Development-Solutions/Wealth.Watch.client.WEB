@@ -1,9 +1,7 @@
-import HomePageComponent from "./components/HomePageComponent";
-import LoginForm from "user_management/Login";
 import LoggedInLayout from "./layout/LoggedIn";
 import UnAuthorizedLayout from "./layout/UnAuthorized";
-import RegisterForm from "user_management/Register";
 import Authentication from "./components/forms/Authentication";
+import HomePageLayout from "./layout/HomePageLayout";
 
 const routes = [
     {
@@ -22,7 +20,7 @@ const routes = [
         children: [
             {
                 path: '/dashboard',
-                element: <HomePageComponent />
+                element: <HomePageLayout />
             }
         ]
     },

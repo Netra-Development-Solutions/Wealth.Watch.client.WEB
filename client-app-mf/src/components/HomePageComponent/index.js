@@ -38,6 +38,8 @@ const HomePageComponent = () => {
     React.useEffect(() => {
         userDetails = localStorage.getItem("userauthdetails") ? JSON.parse(localStorage.getItem("userauthdetails")) : null;
 
+        console.log(userDetails);
+
         if (!userDetails) {
             navigate("/", { replace: true });
         }
