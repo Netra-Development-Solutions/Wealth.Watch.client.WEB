@@ -1,19 +1,30 @@
 import HomePageComponent from "./components/HomePageComponent";
-import RegisterForm from "user_management/Register";
 import LoginForm from "user_management/Login";
+import LoggedInLayout from "./layout/LoggedIn";
+import UnAuthorizedLayout from "./layout/UnAuthorized";
+import RegisterForm from "user_management/Register";
+import Authentication from "./components/forms/Authentication";
 
 const routes = [
     {
-        path: '/register',
-        element: <RegisterForm />
-    },
-    {
         path: '/',
-        element: <HomePageComponent />
+        element: <UnAuthorizedLayout />,
+        children: [
+            {
+                path: '/',
+                element: <Authentication />
+            }
+        ]
     },
     {
-        path: '/login',
-        element: <LoginForm />
+        path: '/dashboard',
+        element: <LoggedInLayout />,
+        children: [
+            {
+                path: '/dashboard',
+                element: <HomePageComponent />
+            }
+        ]
     },
     {
         path: '*',

@@ -1,22 +1,8 @@
-import { Container } from '@mui/system';
 import './App.css';
 import React from 'react';
-import BankAccountForm from './components/forms/BankAccount';
-import ResponsiveAppBar from './components/layout/header';
 import ReactDOM from 'react-dom/client';
-import theme from './components/layout/theme';
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Grid } from '@mui/material';
-import CreditCardForm from './components/forms/CreditCard';
-import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
-import HomePageComponent from './components/HomePageComponent';
 import reportWebVitals from './reportWebVitals';
 
-import TransactionList from 'wealth_watch_transaction_react/TransactionList';
-import TransactionForm from 'wealth_watch_transaction_react/TransactionForm';
-
-import { BrowserRouter as Router, useRoutes } from "react-router-dom";
 import routes from "./routes";
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
@@ -24,31 +10,7 @@ const router = createBrowserRouter(routes)
 
 function App() {
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <ResponsiveAppBar />
-
-            <RouterProvider router={router} />
-
-            {/* <Container>
-                <Paper sx={{ display: 'flex', flexDirection: 'column', margin: '1rem 0' }} elevation={1}>
-                    <Grid container>
-                        <Grid item xs={12} md={6}>
-                            <HomePageComponent />
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            <TransactionForm />
-                            <RegisterForm />
-                            <LoginForm />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TransactionList />
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </Container> */}
-
-        </ThemeProvider>
+        <RouterProvider router={router} />
     );
 }
 
