@@ -4,7 +4,7 @@ import { Container } from '@mui/system';
 
 import theme from '../../components/layout/theme';
 import ResponsiveAppBar from '../../components/layout/header';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
 const LoggedInLayout = ({ children }) => {
     return (
