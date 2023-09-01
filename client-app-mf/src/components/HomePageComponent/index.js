@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
 import { useTheme } from '@mui/material/styles';
 import { get } from "../../utils/apiHelper";
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
     { label: 'Group A', value: 400, color: '#0088FE' },
@@ -31,7 +31,7 @@ const HomePageComponent = () => {
     const theme = useTheme();
     const [bankAccounts, setBankAccounts] = React.useState([]);
     const [creditCards, setCreditCards] = React.useState([]);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
 
     var userDetails;
     
