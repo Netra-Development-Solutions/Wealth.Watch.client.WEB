@@ -3,7 +3,7 @@ import { CssBaseline, Grid } from '@mui/material';
 import { Container } from '@mui/system';
 
 import theme from '../../components/layout/theme';
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 
 const UnAuthorizedLayout = ({ children }) => {
     return (
