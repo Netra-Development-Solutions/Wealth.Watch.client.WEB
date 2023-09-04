@@ -1,7 +1,7 @@
 import LoggedInLayout from "./layout/LoggedIn";
 import UnAuthorizedLayout from "./layout/UnAuthorized";
 import Authentication from "./components/forms/Authentication";
-import HomePageLayout from "./layout/HomePageLayout";
+import TransactionMainLayout from "wealth_watch_transaction_react/TransactionMainLayout";
 
 const routes = [
     {
@@ -20,9 +20,13 @@ const routes = [
         children: [
             {
                 path: '/dashboard',
-                element: <HomePageLayout />
+                element: <TransactionMainLayout />
+            },
+            {
+                path: '/dashboard/transactions',
+                element: <TransactionMainLayout />
             }
-        ]
+        ],
     },
     {
         path: '*',
