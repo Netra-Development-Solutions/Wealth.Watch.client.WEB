@@ -3,10 +3,17 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import { pages } from '../../../constants';
+import { useNavigate } from 'react-router-dom';
 
 const NavLinks = ({ handleCloseNavMenu }) => {
     const theme = useTheme();
+    const navigate = useNavigate();
+
     const isDark = theme.palette.mode === 'dark';
+    const handleNavigation = (path) => {
+        navigate(path);
+        handleCloseNavMenu();
+    }
 
     // if total length of component is more than max length of component, then show a button to show more
     // calculate total length of component
@@ -16,8 +23,8 @@ const NavLinks = ({ handleCloseNavMenu }) => {
             {pages.map((page) => (
                 <Button
                     key={page.key}
-                    onClick={handleCloseNavMenu}
                     sx={{ my: 2, color: isDark ? theme.palette.common.white : theme.palette.primary.contrastText, display: 'block' }}
+                    onClick={() => handleNavigation(page.path)}
                 >
                     {page.name}
                 </Button>
