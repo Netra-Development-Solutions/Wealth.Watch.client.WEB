@@ -10,12 +10,18 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import NavLinks from '../navLinks';
 import UserProfileAvatar from '../profile';
-
-const pages = ['Products', 'Pricing', 'Blog'];
+import { useNavigate } from 'react-router-dom';
+import { pages } from '../../../constants';
 
 function ResponsiveAppBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+        navigate(path);
+        handleCloseNavMenu();
+    }
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -84,8 +90,8 @@ function ResponsiveAppBar() {
                             }}
                         >
                             {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                <MenuItem key={page.key} onClick={() => handleNavigation(page.path)}>
+                                    <Typography textAlign="center">{page.name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
