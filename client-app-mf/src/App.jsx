@@ -5,9 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { SnackbarProvider } from "notistack";
 
 import routes from "./routes";
-import { createBrowserRouter, BrowserRouter as Router, RouterProvider, useRoutes } from 'react-router-dom';
-
-const router = createBrowserRouter(routes)
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
     return (
