@@ -5,7 +5,7 @@ const plugin_injector = require("./plugin-injector.json");
 const deps = require("./package.json").dependencies;
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "https://test-blob.s3.ap-south-1.amazonaws.com/plugins/client-app-mf/1.0.1/",
+    publicPath: "https://test-blob.s3.ap-south-1.amazonaws.com/plugins/client-app-mf/1.0.2/",
   },
 
   resolve: {

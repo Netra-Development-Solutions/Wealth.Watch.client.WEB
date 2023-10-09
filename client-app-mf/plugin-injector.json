@@ -1,6 +1,6 @@
 {
-    "wealth_watch_transaction_react": "wealth_watch_transaction_react@http://localhost:3002/remoteEntry.js",
+    "wealth_watch_transaction_react": "wealth_watch_transaction_react@https://test-blob.s3.ap-south-1.amazonaws.com/plugins/transaction/1.0.1/remoteEntry.js",
     "user_management": "user_management@https://test-blob.s3.ap-south-1.amazonaws.com/plugins/user-management/1.0.1/remoteEntry.js",
-    "account_management": "account_management@http://localhost:3003/remoteEntry.js"
+    "account_management": "account_management@https://test-blob.s3.ap-south-1.amazonaws.com/plugins/account-management/1.0.0/remoteEntry.js"
 }
 
