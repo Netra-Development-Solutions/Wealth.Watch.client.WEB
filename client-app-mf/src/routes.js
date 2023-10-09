@@ -5,7 +5,7 @@ import TransactionMainLayout from "wealth_watch_transaction_react/TransactionMai
 import AccountManagementComponent from "account_management/AccountManagementComponent"
 import BankAccountForm from "account_management/BankAccountForm";
 import CreditCardForm from "account_management/CreditCardForm";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const routes = [
     {
@@ -44,7 +44,7 @@ const routes = [
     {
         path: '*',
         element: <>
-            <h1>404</h1>
+            <Navigate to="/" />
         </>
     }
 ];
