@@ -1,6 +1,6 @@
 {
   "name": "client-app-mf",
-  "version": "1.0.3",
+  "version": "1.0.1",
   "scripts": {
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
